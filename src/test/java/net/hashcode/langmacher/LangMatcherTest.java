@@ -4,7 +4,9 @@ import org.apache.tika.Tika;
 import com.cybozu.labs.langdetect.Detector;
 import com.cybozu.labs.langdetect.DetectorFactory;
 import java.io.File;
+import java.io.FileOutputStream;
 import org.apache.log4j.Logger;
+import org.apache.tika.io.IOUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -13,6 +15,7 @@ import static java.lang.String.*;
 /*
  * @autor shairon toledo
  */
+
 public class LangMatcherTest {
 
   private static final Logger log = Logger.getLogger(LangMatcherTest.class);
@@ -34,21 +37,35 @@ public class LangMatcherTest {
     assertThat(detect(text), equalTo("pt"));
   }
 
-  public void genericTest(String name, String langName) throws Exception{
-    String langMsg = format("Language %s(%s): ",name,langName);
-    
-    log.info(langMsg+"loading");
+  public void genericTest(String name, String langName) throws Exception {
+    String langMsg = format("Language %s(%s): ", name, langName);
+
+    log.info(langMsg + "loading");
+
+
+
     String dir = String.format("docs/%s/", langName);
-    
+
     File fs[] = getFile(dir).listFiles();
-    log.info(langMsg+fs.length+" files");
+    log.info(langMsg + fs.length + " files");
     for (File file : fs) {
 
       log.info(langMsg + dir + file.getName());
       String text = extract(file);
       assertThat(text, notNullValue());
       assertThat(detect(text), equalTo(langName));
+      textDump(text, langName, file.getName());
     }
+
+  }
+
+  public void textDump(String text, String lang, String filename) throws Exception {
+    File dir = new File(String.format("dump/%s", lang));
+    if (!dir.exists()) {
+      dir.mkdirs();
+    }
+
+    IOUtils.write(text.getBytes(), new FileOutputStream(new File(dir,filename + ".txt")));
 
   }
 
@@ -56,48 +73,52 @@ public class LangMatcherTest {
   public void Portuguese() throws Exception {
     genericTest("Portuguese", "pt");
   }
-  
+
   @Test
   public void English() throws Exception {
     genericTest("English", "en");
   }
+
   @Test
   public void French() throws Exception {
     genericTest("French", "fr");
   }
+
   @Test
   public void German() throws Exception {
     genericTest("German", "de");
   }
+
   @Test
   public void Dutch() throws Exception {
     genericTest("Dutch", "nl");
   }
+
   @Test
   public void Italian() throws Exception {
     genericTest("Italian", "it");
   }
-  
+
   @Test
   public void Spanish() throws Exception {
     genericTest("Spanish", "en");
   }
-  
+
   @Test
   public void Korean() throws Exception {
     genericTest("Korean", "ko");
   }
- 
+
   @Test
   public void SimplifiedChinese() throws Exception {
     genericTest("Simplified Chinese", "zh-cn");
   }
-  
+
   @Test
   public void TraditionalChinese() throws Exception {
     genericTest("Traditional Chinese", "zh-tw");
   }
-  
+
   @Test
   public void Japanese() throws Exception {
     genericTest("Japanese", "ja");

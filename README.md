@@ -38,7 +38,7 @@ Create a directory under `docs/{langX}`, add some document to it and then create
     export JAVA_OPTS=-Djava.awt.headless=true
     mvn test
     
-##Sample Output
+##Log Output
 
 
 
@@ -71,3 +71,29 @@ Create a directory under `docs/{langX}`, add some document to it and then create
     [INFO ][LangMatcherTest] Language English(en): docs/en/preven_code_tcm3-4039.pdf
     [INFO ][LangMatcherTest] Language English(en): docs/en/STATEOFBLACKBOSTON_000.pdf
     [INFO ][LangMatcherTest] Language French(fr): loading
+
+## Dump files
+When the test passes to the language you can get extracted text in `dump` directory in the root of the project.
+
+    dump/nl
+    dump/nl/bereikbaarkaart-nl_print.pdf.txt
+    dump/nl/de_bodem_onder_amsterdam.pdf.txt
+    dump/nl/Economische verkenningen MRA2011_tcm14-228419.pdf.txt
+    dump/nl/How To Reach Amsterdam RAI.pdf.txt
+    dump/nl/IBM_Amsterdam_HDK.pdf.txt
+    dump/nl/kwaliteitswijzer_291111_web_def.pdf.txt
+    dump/nl/mas0.pdf.txt
+    dump/nl/route-oracle-amsterdam1-157087-nl.pdf.txt
+    dump/nl/{00C1E905-406C-490B-8079-5B9DCA9927BA}_C_NED.pdf.txt
+    dump/en
+    dump/en/188741.pdf.txt
+    dump/en/Article33.pdf.txt
+    dump/en/BOSTmap.pdf.txt
+    dump/en/ff-boston_tcm7-4572.pdf.txt
+    dump/en/file84471.pdf.txt
+    dump/en/InformingTheDebate_Final.pdf.txt
+    dump/en/preven_code_tcm3-4039.pdf.txt
+    dump/en/STATEOFBLACKBOSTON_000.pdf.txt
+
+
+
